@@ -1125,7 +1125,7 @@ public class CORSFilterTest {
                 .getSpecificOriginFilterConfig());
         CORSFilter.CORSRequestType requestType =
                 corsFilter.checkRequestType(request);
-        Assert.assertEquals(CORSFilter.CORSRequestType.INVALID_CORS,
+        Assert.assertEquals(CORSFilter.CORSRequestType.SIMPLE,
                 requestType);
     }
 

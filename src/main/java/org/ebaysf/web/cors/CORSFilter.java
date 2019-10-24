@@ -628,7 +628,13 @@ public final class CORSFilter implements Filter {
                         requestType = CORSRequestType.SIMPLE;
                     } else if ("POST".equals(method)) {
                         String contentType = request.getContentType();
-                        if (contentType != null) {
+                        /* 没有Content类型时(mediaType == NULL)  返回的是 CORSRequestType.INVALID_CORS,
+                         * 后面CorsFilter的处理是给予一个403
+                         * 增加：如果contentType == null，则设置requestType为SIMPLE
+                         */
+                        if (contentType == null) {
+                            requestType = CORSRequestType.SIMPLE;
+                        } else {
                             contentType = contentType.toLowerCase().trim();
                             if (SIMPLE_HTTP_REQUEST_CONTENT_TYPE_VALUES
                                     .contains(contentType)) {
